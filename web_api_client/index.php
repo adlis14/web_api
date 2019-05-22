@@ -41,7 +41,7 @@ if(isset($_GET['hapus']) && $_GET['hapus'] != ''){
 //Curl untuk menghapus data dari api?>
 <h3>Data Dari Endpoin API Mahasiswa</h3>
 <p><a href="http://localhost/web_api_client/mhs_tambah.php">Tambah</a></p>
-<table border="1" cellspacing="0" cellpadding="0" style='border-collapse:collapse;'>
+<table border="1" cellspacing="0" cellpadding="5" style='border-collapse:collapse;'>
 	<tr>
 		<td>Nama</td>
 		<td>NRP</td>
@@ -55,7 +55,10 @@ if(isset($_GET['hapus']) && $_GET['hapus'] != ''){
 					<td><?php echo $value['nrp']; ?></td>
 					<td><?php echo $value['email']; ?></td>
 					<td><?php echo $value['jurusan']; ?></td>
-					<td><a href="http://localhost/web_api/web_api_client?hapus=<?php echo $value['id']; ?>">hapus</td>
+					<td>
+						<a href="http://localhost/web_api_client/mhs_edit.php?id=<?php echo $value['id']; ?>">edit | 
+						<a href="http://localhost/web_api_client?hapus=<?php echo $value['id']; ?>">hapus</a>
+					</td>
 			</tr><?php 
 		} 
 	} ?>
