@@ -30,4 +30,37 @@ class Makul extends REST_Controller {
           ), REST_Controller::HTTP_BAD_REQUEST);
         }
     }
+
+    public function tambah_post(){
+      if($this->Makul_model->tambahDataMakul($_POST) > 0) {
+        $this->response(array(
+          'status'  => 'true',
+          'code'    => '200',
+          'data'    => 'data berhasil di tambah'
+        ), REST_Controller::HTTP_CREATED);
+      } else {
+        $this->response(array(
+          'status'  => 'false',
+          'code'    => '401',
+          'data'    => 'data gagal disimpan disisi server'
+        ), REST_Controller::HTTP_BAD_REQUEST);
+      }
+    }
+
+    public function hapus_get($id){
+      if($this->Makul_model->hapusDataMakul($id)) {
+         $this->response(array(
+          'status'  => 'true',
+          'code'    => '200',
+          'data'    => 'data berhasil dihapus'
+         ), REST_Controller::HTTP_CREATED);
+      } else {
+        $this->response(array(
+          'status'  => 'false',
+          'code'    => '401',
+          'data'    => 'data gagal dihapus disisi server'
+        ), REST_Controller::HTTP_BAD_REQUEST);
+      }
+    }
+
 }

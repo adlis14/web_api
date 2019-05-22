@@ -7,4 +7,15 @@ class Makul_model extends CI_Model{
             return $this->db->get('Makul')->result();
         }
     }
+
+    public function tambahDataMakul($data){
+        $this->db->insert('makul', $data);
+        return $this->db->affected_rows();
+    }
+
+    public function hapusDataMakul($id){
+        $this->db->where("id = $id");
+        return $this->db->delete('makul');;
+    }
+
 }
