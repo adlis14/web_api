@@ -4,18 +4,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . 'libraries/REST_Controller.php';
 require APPPATH . 'libraries/Format.php';
 
-class Makul extends REST_Controller {
+class Kos extends REST_Controller {
     function __construct(){
         parent::__construct();
-        $this->load->model('Makul_model');
+        $this->load->model('Kos_model');
     }
 
-public function index_get(){
+    public function index_get(){
         $id = $this->get('id');
         if($id != ''){
-            $data_mhs = $this->Makul_model->getMakul($id);
+            $data_mhs = $this->Kos_model->getKos($id);
         }else{
-            $data_mhs = $this->Makul_model->getMakul();
+            $data_mhs = $this->Kos_model->getKos();
         }
         if($data_mhs == true){
           $this->response(array(
@@ -30,8 +30,41 @@ public function index_get(){
           ), REST_Controller::HTTP_BAD_REQUEST);
         }
     }
-    public function tambah_post($id){
-      if($this->Makul_model->hapusDataMakul($id)) {
+
+    public function tambah_post(){
+        if($this->Kos_model->tambahDataKos($_POST) > 0) {
+          $this->response(array(
+            'status'  => 'true',
+            'code'    => '200',
+            'data'    => 'data berhasil di tambah'
+          ), REST_Controller::HTTP_CREATED);
+        } else {
+          $this->response(array(
+            'status'  => 'false',
+            'code'    => '401',
+            'data'    => 'data gagal disimpan disisi server'
+          ), REST_Controller::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function ubah_post(){
+      if($this->Kos_model->ubahDataKos($_POST) > 0) {
+        $this->response(array(
+          'status'  => 'true',
+          'code'    => '200',
+          'data'    => 'data berhasil diubah'
+        ), REST_Controller::HTTP_CREATED);
+      } else {
+        $this->response(array(
+          'status'  => 'false',
+          'code'    => '401',
+          'data'    => 'data gagal diubah disisi server'
+        ), REST_Controller::HTTP_BAD_REQUEST);
+      }
+    }
+
+    public function hapus_get($id){
+      if($this->Kos_model->hapusDataKos($id)) {
          $this->response(array(
           'status'  => 'true',
           'code'    => '200',
@@ -45,19 +78,5 @@ public function index_get(){
         ), REST_Controller::HTTP_BAD_REQUEST);
       }
     }
-  public function hapus_get($id){
-      if($this->Makul_model->hapusDataMakul($id)) {
-         $this->response(array(
-          'status'  => 'true',
-          'code'    => '200',
-          'data'    => 'data berhasil dihapus'
-         ), REST_Controller::HTTP_CREATED);
-      } else {
-        $this->response(array(
-          'status'  => 'false',
-          'code'    => '401',
-          'data'    => 'data gagal dihapus disisi server'
-        ), REST_Controller::HTTP_BAD_REQUEST);
-      }
-    }
+
 }
